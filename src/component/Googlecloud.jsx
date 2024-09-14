@@ -56,9 +56,10 @@ const MyComponent = () => {
   }
 
   return (
-    <div>
+    <div className='bg-gray-300 h-screen relative'>
+    <div className='w-[50%] mt-[10%] ms-[25%] absolute cursor-pointer mx-auto'>
       <GooglePlacesAutocomplete
-        apiKey="AIzaSyBRDlvJOTJYDmVsm3HKGeUjoZjgvlAxquE" // Replace with your actual API key
+        apiKey="AIzaSyBRDlvJOTJYDmVsm3HKGeUjoZjgvlAxquE" 
         selectProps={{
           onChange: handleSelect,
         }}
@@ -97,6 +98,7 @@ const MyComponent = () => {
           <p>Longitude: {location.lng}</p>
         </div>
       )}
+    </div>
     </div>
   );
 };
