@@ -17,7 +17,8 @@ const MyComponent = () => {
     const placeId = selectedOption.value.place_id || selectedOption.place_id;
     // console.log('Place ID:', placeId);
 
-    const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/';
+    // const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/';
+    const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
      const TARGET_URL = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${'AIzaSyBRDlvJOTJYDmVsm3HKGeUjoZjgvlAxquE'}`
     const URL = PROXY_URL + encodeURIComponent(TARGET_URL);
 
