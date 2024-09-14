@@ -8,8 +8,8 @@ function App() {
     <>
    
       <Routes>
-        <Route path="/" element={<CountryList />} />
-        <Route path="/google" element={<Googlecloud />} />
+        <Route path="/country" element={<CountryList />} />
+        <Route path="/" element={<Googlecloud />} />
       </Routes>
     
     
