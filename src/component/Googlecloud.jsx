@@ -32,7 +32,7 @@ const MyComponent = () => {
       
       const data = response.data.result.geometry.location;
       console.log(data)
-      const resData = await axios.post('https://dd9f-102-88-34-59.ngrok-free.app/api/memo/memgeotemp', {lat:`${data.lat}`,lng:`${data.lng}`},{
+      const resData = await axios.post('https://d4c5-102-89-22-178.ngrok-free.app/api/memo/memgeotemp', {lat:`${data.lat}`,lng:`${data.lng}`},{
         headers: {
           "ngrok-skip-browser-warning": '69420',
           'Content-Type': 'application/json',
