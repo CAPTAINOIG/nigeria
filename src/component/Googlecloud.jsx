@@ -17,10 +17,10 @@ const MyComponent = () => {
     const placeId = selectedOption.value.place_id || selectedOption.place_id;
     // console.log('Place ID:', placeId);
 
-    const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/';
-    // const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+    // const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/';
+    const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
      const TARGET_URL = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${'AIzaSyBRDlvJOTJYDmVsm3HKGeUjoZjgvlAxquE'}`
-    const URL = TARGET_URL;
+    const URL = PROXY_URL + TARGET_URL;
 
     try {
       const response = await axios.get(URL, {
