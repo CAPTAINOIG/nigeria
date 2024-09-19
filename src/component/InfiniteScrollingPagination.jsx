@@ -42,8 +42,8 @@ const InfiniteScrollPagination = () => {
     };
 
     return (
-        <div >
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4 p-10">
+        <div className="bg-gray-200">
+            <div className="grid grid-cols-1 bg-gray-200 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4 p-10">
                 {items.map((item, index) => (
                     <div key={index} className="bg-gray-800 p-2 rounded-lg">
                         <div className="flex justify-center items-center">
@@ -55,7 +55,7 @@ const InfiniteScrollPagination = () => {
 
 
             {loading &&
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center bg-gray-200 h-screen">
                     <img src={gif} alt="Loading..." className="w-[50px] mt-10" />
                 </div>
             }
