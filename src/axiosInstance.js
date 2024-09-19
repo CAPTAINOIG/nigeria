@@ -9,8 +9,7 @@ import axios from 'axios';
 
 
 const axiosInstance = axios.create({
-    // baseURL: 'https://shopsphere-node.onrender.com',
-    baseURL: 'https://6dcd-102-89-22-162.ngrok-free.app/api',
+    baseURL: 'https://867f-102-88-84-48.ngrok-free.app/api',
     headers: {
       "ngrok-skip-browser-warning": '69420',
       'Content-Type': 'application/json',
