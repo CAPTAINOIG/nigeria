@@ -10,25 +10,23 @@ const InfiniteScrollPagination = () => {
     const pageSize = 100;
     const totalItems = 5000;
 
-    useEffect(() => {
-        const loadItems = async () => {
-            setLoading(true);
-            try {
-                const response = await axiosInstance.get(`/memo/get_all_memoqrcodes?page=${page}`);
-                const newItems = response?.data?.data;
-                if (Array.isArray(newItems)) {
-                    setItems((prevItems) => [...prevItems, ...newItems]);
-                    const totalFetched = items.length + newItems.length;
-                    setHasMore(newItems.length === pageSize && totalFetched < totalItems);
-                } else {
-                    setHasMore(false);
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            } finally {
-                setLoading(false);
+    const loadItems = async () => {
+        setLoading(true);
+        try {
+            const response = await axiosInstance.get(`/memo/get_all_memoqrcodes?page=${page}`);
+            const newItems = response?.data?.data;
+            if (Array.isArray(newItems)&& newItems.length>0) {
+                setItems((prevItems) => [...prevItems, ...newItems]);
+            } else {
+                setHasMore(false);
             }
-        };
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    useEffect(() => {
 
         if (hasMore) {
             loadItems();
@@ -36,9 +34,7 @@ const InfiniteScrollPagination = () => {
     }, [page]);
 
     const handleLoadMore = () => {
-        if (!loading && hasMore) {
             setPage((prevPage) => prevPage + 1);
-        }
     };
 
     return (
@@ -60,8 +56,8 @@ const InfiniteScrollPagination = () => {
                 </div>
             }
 
-            {!loading && hasMore && (
-                <div className="flex justify-center mt-5">
+            {(!loading && hasMore ) && (
+                <div className="flex justify-center mt-5 bg-gray-200">
                     <button onClick={handleLoadMore} className="bg-blue-900 mb-3 text-white px-4 py-2 rounded">
                         Load More
                     </button>
