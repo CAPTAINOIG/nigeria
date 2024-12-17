@@ -1,107 +1,115 @@
-import React, { useEffect, useState } from 'react';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import axios from 'axios';
-import axiosInstance from '../axiosInstance';
+import React, { useState } from "react";
+import Autocomplete from "react-google-autocomplete";
 
-const MyComponent = () => {
-  const [location, setLocation] = useState(null);
+const App = () => {
+  const [locationDetails, setLocationDetails] = useState({
+    country: "",
+    state: "",
+    city: "",
+    zipCode: "",
+  });
 
-  // useEffect(() => {
-  //   latFetch();
-  // }, [])
-  
+  const handlePlaceSelected = (place) => {
+    if (!place) return;
 
-  const handleSelect = async (selectedOption) => {
-    console.log(selectedOption);
-    // Extract place_id from selectedOption
-    const placeId = selectedOption.value.place_id || selectedOption.place_id;
-    // console.log('Place ID:', placeId);
+    const addressComponents = place.address_components;
 
-    const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/';
-    // const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-     const TARGET_URL = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${'AIzaSyBRDlvJOTJYDmVsm3HKGeUjoZjgvlAxquE'}`
-    const URL = PROXY_URL + TARGET_URL;
+    const getComponent = (types) =>
+      addressComponents.find((component) =>
+        component.types.some((type) => types.includes(type))
+      )?.long_name;
 
-    try {
-      const response = await axios.get(URL, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer your-token',
-        }
-      });
-      
-      const data = response.data.result.geometry.location;
-      console.log(data)
-      const resData = await axios.post('https://d4c5-102-89-22-178.ngrok-free.app/api/memo/memgeotemp', {lat:`${data.lat}`,lng:`${data.lng}`},{
-        headers: {
-          "ngrok-skip-browser-warning": '69420',
-          'Content-Type': 'application/json',
-        }
-      })
-      console.log(resData);
-      
-      // console.log('Latitude:', lat);
-      // console.log('Longitude:', lng);
+    const country = getComponent(["country"]);
+    const state = getComponent(["administrative_area_level_1"]);
+    const city = getComponent(["locality", "administrative_area_level_2"]);
+    const zipCode = getComponent(["postal_code"]) || ""; // Empty string if not available
 
-      // Update state with lat and lng
-    } catch (error) {
-      console.error('Error fetching place details:', error);
-    }
+    setLocationDetails({ country, state, city, zipCode });
   };
 
-  const latFetch = async() => {
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const handleInputChange = (field, value) => {
+    setLocationDetails((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = () => {
+    console.log("Final Location Details:", locationDetails);
+    alert("Details submitted successfully!");
+    // Send details to the backend or save them as needed
+  };
 
   return (
-    <div className='bg-gray-300 h-screen relative'>
-    <div className='w-[50%] mt-[10%] ms-[25%] absolute cursor-pointer mx-auto'>
-      <GooglePlacesAutocomplete
-        apiKey="AIzaSyBRDlvJOTJYDmVsm3HKGeUjoZjgvlAxquE" 
-        selectProps={{
-          onChange: handleSelect,
+    <div style={{ padding: "20px" }}>
+      <h1>Geolocation API Project</h1>
+      <Autocomplete
+        apiKey="AIzaSyAiBBG3mp9DjIydSmBo4FdHJKRsAREZgcc"
+        onPlaceSelected={handlePlaceSelected}
+        options={{
+          types: ["(regions)"], // Limit to regions (cities, states, countries)
         }}
         placeholder="Search for a location"
-        styles={{
-          container: {
-            flex: 1,
-            width: '100%',
-          },
-          textInputContainer: {
-            backgroundColor: 'transparent',
-            borderRadius: '0.375rem',
-            borderWidth: '1px',
-            borderColor: '#d1d5db',
-            width: '100%',
-            maxWidth: '100%',
-            margin: '0 auto',
-          },
-          textInput: {
-            height: '2.75rem',
-            borderColor: '#d1d5db',
-            borderWidth: '1px',
-            borderRadius: '0.375rem',
-            paddingHorizontal: '1rem',
-            width: '100%',
-          },
-          predefinedPlacesDescription: {
-            color: '#1faadb',
-          },
+        style={{
+          width: "100%",
+          padding: "10px",
+          fontSize: "16px",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
         }}
       />
-
-      {location && (
+      <div style={{ marginTop: "20px" }}>
+        <h3>Edit Location Details:</h3>
         <div>
-          <p>Latitude: {location.lat}</p>
-          <p>Longitude: {location.lng}</p>
+          <label>Country:</label>
+          <input
+            type="text"
+            value={locationDetails.country}
+            onChange={(e) => handleInputChange("country", e.target.value)}
+            style={{ display: "block", marginBottom: "10px", padding: "5px" }}
+          />
         </div>
-      )}
-    </div>
+        <div>
+          <label>State:</label>
+          <input
+            type="text"
+            value={locationDetails.state}
+            onChange={(e) => handleInputChange("state", e.target.value)}
+            style={{ display: "block", marginBottom: "10px", padding: "5px" }}
+          />
+        </div>
+        <div>
+          <label>City:</label>
+          <input
+            type="text"
+            value={locationDetails.city}
+            onChange={(e) => handleInputChange("city", e.target.value)}
+            style={{ display: "block", marginBottom: "10px", padding: "5px" }}
+          />
+        </div>
+        <div>
+          <label>ZIP Code:</label>
+          <input
+            type="text"
+            value={locationDetails.zipCode}
+            onChange={(e) => handleInputChange("zipCode", e.target.value)}
+            placeholder="Enter ZIP code if unavailable"
+            style={{ display: "block", marginBottom: "10px", padding: "5px" }}
+          />
+        </div>
+        <button
+          onClick={handleSubmit}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#007BFF",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 };
 
-export default MyComponent;
+export default App;
