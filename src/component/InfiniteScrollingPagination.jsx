@@ -38,14 +38,15 @@ const InfiniteScrollPagination = () => {
     return (
         <div className="bg-gray-200 h-screen">
             <div className="grid grid-cols-1 bg-gray-200 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4 p-10">
-                {items.map((item, index) => (
+                {items.map((item, index) =>{ 
+                    return (
                     <div key={index} className="p-2 rounded-lg">
                         <div className="text-black font-bold text-center mb-2">Item {item.Id}</div>
                         <div className="flex justify-center items-center">
                             <img className="w-full h-auto" src={item?.MemQrCode} alt="QR Code" />
                         </div>
                     </div>
-                ))}
+                )})}
             </div>
 
             {loading  &&(
