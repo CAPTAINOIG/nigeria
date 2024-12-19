@@ -42,7 +42,7 @@ const InfiniteScrollPagination = () => {
                     return (
                         <div key={index} className="rounded-lg py-2 px-1 relative">
                             <div className="text-black font-bold text-center mb-2 text-xs">Item {item.Id}</div>
-                            <div className="absolute bottom-[3%] right-[8%] text-gray-500 text-[9px] transparent rounded-full p-1 lg:ms-[80px] font-extrabold z-50">Item {item.Id}</div>
+                            <div className="absolute bottom-[2%] right-[8%] text-gray-500 text-[9px] transparent rounded-full p-1 lg:ms-[80px] font-extrabold z-50">Item {item.Id}</div>
                             <img className="w-full h-auto" src={item?.MemQrCode} alt="QR Code" />
 
                         </div>
