@@ -40,9 +40,10 @@ const InfiniteScrollPagination = () => {
             <div className="grid grid-cols-1 bg-gray-200 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4 p-10">
                 {items.map((item, index) =>{ 
                     return (
-                    <div key={index} className="p-2 rounded-lg">
-                        <div className="text-black font-bold text-center mb-2">Item {item.Id}</div>
-                        <div className="flex justify-center items-center">
+                    <div key={index} className="rounded-lg">
+                        <div className="text-black font-bold text-center mb-2 text-xs">Item {item.Id}</div>
+                        <div className="flex justify-center items-center relative">
+                        <div className="absolute mt-[120px] text-orange-500 text-[8px] transparent rounded-full p-1 lg:ms-[80px] font-bold z-50">Item {item.Id}</div>
                             <img className="w-full h-auto" src={item?.MemQrCode} alt="QR Code" />
                         </div>
                     </div>
