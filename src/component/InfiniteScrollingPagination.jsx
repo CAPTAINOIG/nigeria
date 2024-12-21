@@ -13,6 +13,7 @@ const InfiniteScrollPagination = () => {
         try {
             const response = await axiosInstance.get(`/memo/get_all_memoqrcodes?page=${page}`);
             const newItems = response?.data?.data || [];
+            console.log(newItems);
             if (newItems.length > 0) {
                 setItems((prevItems) => [...prevItems, ...newItems]);
             } else {
