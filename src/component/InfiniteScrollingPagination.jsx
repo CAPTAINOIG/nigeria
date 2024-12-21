@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import gif from '../assets/image/gif.gif';
 import axiosInstance from "../axiosInstance";
+import {toast } from 'react-toastify';
 
 const InfiniteScrollPagination = () => {
     const [items, setItems] = useState([]);
@@ -21,6 +22,8 @@ const InfiniteScrollPagination = () => {
             }
         } catch (error) {
             console.error("Error fetching data:", error);
+            toast.error("Error fetching data");
+
         } finally {
             setLoading(false);
         }
