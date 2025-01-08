@@ -1,89 +1,75 @@
-import React, { useState } from 'react';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+// import React, { useState, useEffect } from "react";
+// import gif from '../assets/image/gif.gif';
+// import axiosInstance from "../axiosInstance";
+// import {toast } from 'react-toastify';
 
-const Googlecloud = () => {
-  const [selectedPlace, setSelectedPlace] = useState(null);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
+// const InfiniteScrollPagination = () => {
+//     const [items, setItems] = useState([]);
+//     const [page, setPage] = useState(1);
+//     const [loading, setLoading] = useState(false);
+//     const [hasMore, setHasMore] = useState(true);
 
-  const handlePlaceSelect = (data) => {
-    alert("hello")
-    if (data) {
-      console.log('Selected place:', data.label);
-      if (data.value && data.value.geometry && data.value.geometry.location) {
-        const lat = data.value.geometry.location.lat();
-        const lng = data.value.geometry.location.lng();
+//     const loadItems = async () => {
+//         setLoading(true);
+//         try {
+//             const response = await axiosInstance.get(`/memo/get_all_memoqrcodes?page=${page}`);
+//             const newItems = response?.data?.data || [];
+//             console.log(newItems);
+//             if (newItems.length > 0) {
+//                 setItems((prevItems) => [...prevItems, ...newItems]);
+//             } else {
+//                 setHasMore(false);
+//             }
+//         } catch (error) {
+//             console.error("Error fetching data:", error);
+//             toast.error(`Error fetching data: ${error.message}`);
 
-        setSelectedPlace(data.label);
-        setLatitude(lat);
-        setLongitude(lng);
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
 
-        console.log('Latitude:', lat);
-        console.log('Longitude:', lng);
-      } else {
-        console.log('Geometry data not available');
-      }
-    }
-  };
+//     useEffect(() => {
+//         loadItems();
+//     }, [page]);
 
-  return (
-    <div className="w-full max-w-md mx-auto my-4">
-      <GooglePlacesAutocomplete
-        placeholder="Search for a location"
-        ref={(val)=>{
-          console.log(val)
-        }}
-      selectProps={{
-        onChange: (val)=>{
-          console.log(val)
-        },
+//     const handleLoadMore = () => {
+//         if (!hasMore) return;
+//         setLoading(true);
+//         setPage((prevPage) => prevPage + 1);
+//     };
 
-      }}
-        
-        
-        
-        query={{
-          key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-          language: 'en',
-        }}
-        fetchDetails={true}
-        styles={{
-          container: {
-            flex: 1,
-            width: '100%',
-          },
-          textInputContainer: {
-            backgroundColor: 'transparent',
-            borderRadius: '0.375rem',
-            borderWidth: '1px',
-            borderColor: '#d1d5db',
-            width: '100%',
-            maxWidth: '100%',
-            margin: '0 auto',
-          },
-          textInput: {
-            height: '2.75rem',
-            borderColor: '#d1d5db',
-            borderWidth: '1px',
-            borderRadius: '0.375rem',
-            paddingHorizontal: '1rem',
-            width: '100%',
-          },
-          predefinedPlacesDescription: {
-            color: '#1faadb',
-          },
-        }}
-      />
-      {selectedPlace && (
-        <div className="mt-4">
-          <h2>Selected Place:</h2>
-          <p>{selectedPlace}</p>
-          <p>Latitude: {latitude}</p>
-          <p>Longitude: {longitude}</p>
-        </div>
-      )}
-    </div>
-  );
-};
+//     return (
+//         <div className="bg-gray-200 h-screen">
+//             <div className="grid grid-cols-1 bg-gray-200 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 p-10">
+//                 {items.map((item, index) => {
+//                     return (
+//                         <div key={index} className="rounded-lg py-2 px-1 relative">
+//                             <div className="text-black font-bold text-center mb-2 text-xs">Item {item.Id}</div>
+//                             <div className="absolute bottom-[2%] right-[8%] text-gray-500 text-[9px] transparent rounded-full p-1 lg:ms-[80px] font-extrabold z-50">Item {item.Id}</div>
+//                             <img className="w-full h-auto" src={item?.MemQrCode} alt="QR Code" />
 
-export default Googlecloud;
+//                         </div>
+//                     )
+//                 })}
+//             </div>
+
+//             {loading && (
+//                 <div className="flex justify-center items-center bg-gray-200">
+//                     <img src={gif} alt="Loading..." className="w-[30px] mt-10" />
+//                 </div>
+//             )}
+//             {hasMore && !loading && (
+//                 <div className="flex justify-center bg-gray-200">
+//                     <button onClick={handleLoadMore} className="bg-blue-900 mb-3 hover:bg-gray-900 text-white px-4 py-2 rounded">
+//                         Load More
+//                     </button>
+//                 </div>
+//             )} {!hasMore && (
+//                 <p className="text-center text-gray-700 mt-5">No more items to load</p>
+//             )}
+//         </div>
+//     );
+// };
+
+// export default InfiniteScrollPagination;
