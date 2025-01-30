@@ -2,8 +2,17 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
-
-
 @import url('https://fonts.googleapis.com/css2?family=Mirza:wght@400;500;600;700&display=swap');
+
+
+@media print {
+    .qr-container {
+      background-color: #002f6c !important;
+      color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+  
+
 
